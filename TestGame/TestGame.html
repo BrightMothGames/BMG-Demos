@@ -1,0 +1,74 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Futari Nezumi">           <!-- <= WEBAPP TITLE -->
+    <link rel="apple-touch-icon" href="label.png">                           <!-- <= YOUR ICON -->
+    <link rel="icon" href="label.png">                                       <!-- <= YOUR ICON -->
+    <title>Futari Nezumi</title>                                               <!-- <= WEBSITE TITLE -->
+    <meta name="description" content="">                    <!-- <= SITE DESCRIPTION as seen by web-search-engines -->
+
+    <!-- Info as seen by sharing apps like WhatsApp or Facebook, so they can show a preview-image and description when you share the URL -->
+    <meta property="og:type" content="game"/>
+    <meta property="og:title" content=""/>                                               <!-- <= GAME TITLE -->
+    <meta property="og:image" content="./label.png"/>
+    <!-- <= GAME IMAGE (you can also use a screenshot instead of the icon, but be sure to use the FULL URL here!) -->
+    <meta property="og:description" content=""/>                                         <!-- <= GAME DESCRIPTION -->
+
+</head>
+
+<body style="padding:0px; margin:0px; background-color:#222; color:#ccc; text-align: center; align-content: center;">
+<div id="frame" style="display:flex; margin:auto;">
+    <div id="canvasContainer" style="margin: auto; display: flex;">
+        <div id="playArea" style="margin-right: auto; margin-bottom: auto; margin-left: auto;">
+            <div style="position: relative;">
+                <div id="startButton" class="startButton" style="width:704px; height:704px; display:flex;
+                    position: relative; margin-top: 30px;
+                    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(label.png);
+                    background-size: cover;">
+                    <img width="80" height="80" style="margin:auto;"
+                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAABpklEQVR42u3au23DQBCEYUXOXIGKcujQXUgFuA0XIKgW90Q9oEAg+Ljd27vd2RsCf058gEDqhofPj+OB6SMCAQlIQAIyAhKQgARkBAQDnM6XSRsB7/2e/tSA0//12fCAKsQX3ntDA4oRFwBRIc0AixE38BAhTQGLEAsBUSDNAXcRhYDRIZsAPlp99VECRoXsDpgN0g0wC6Q7IDpkGEBUyG6A0+vKBtkdMBukG2AWSHdAdMgwgKiQ4QDRIMMCokCGB4wOCQPYFVKw2cABNocUjl6wgE0gFashPKAZpHJ2TQNYBVmxW6cDFENWDv9pAUshCVgJScBKSAISkD9hPkT4GkNAMdzepyj8Kye852EBLe51CZHHWQK4JcThD1SlcHPEYY/0a+A0n6SkGZV6w6WZNb3g4Id1b7hwgGhwYQBR4dwB0eHcALPAdQfMBhcOEA0uDCAqnDsgOpwbYBa4poA/31+rZYFrBriFpwGMCtcEcA9PAhgdzhywBK8EEQXOFFCCtwaIBmcGKMWbI6LCmQBq8R6hw5kAMgISkIAEJCAjIAEJSEBGQI9ukV7lRn9nD+gAAAAASUVORK5CYII=">
+                </div>
+                <canvas id="canvas" oncontextmenu="event.preventDefault();" style="visibility: hidden;
+                 margin-left: 0px; margin-top: 0px;">
+                </canvas>
+            </div>
+        </div> <!--playArea -->
+    </div> <!-- canvasContainer -->
+</div>
+<script type='text/javascript'>
+    var Module = {
+        canvas: document.getElementById('canvas'),
+        print: function (text) {
+            console.log(text);
+        },
+        printErr: function (text) {
+            console.error(text);
+        }
+    };
+    document.getElementById('startButton').addEventListener('click', () => {
+        createTestGame().then(TestGame => {
+            document.getElementById("playArea").style.display = "table";
+            document.getElementById("canvas").style.visibility = "visible";
+            document.getElementById('startButton').style.display = "none";
+            console.log('WebAssembly module loaded and ready!');
+            // You can now call exported C/C++ functions via MyModule._yourCFunction();
+            // For example, if you have a C function `void myFunction() EMSCRIPTEN_KEEPALIVE;`
+            // you would call MyModule._myFunction();
+        }).catch(error => {
+            console.error('Error loading WebAssembly module:', error);
+        });
+    });
+</script>
+
+<script type="text/javascript" src="TestGame.js"></script>
+
+<!-- uncomment this if you want clipboard access
+	<textarea id="codo_textarea" class="emscripten" style="position:absolute; left:-9999px;"></textarea>	
+-->
+
+</body>
+</html>
